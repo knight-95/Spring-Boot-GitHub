@@ -42,12 +42,33 @@ public class Bootjpaexample1Application {
 
 //		Getting the Data from Database
 
-		Iterable<User> itr = userRepository.findAll();
-
-		itr.forEach(user -> {
-			System.out.println(user);
-		});
-
+		/*
+		 * Iterable<User> itr = userRepository.findAll();
+		 * 
+		 * itr.forEach(user -> { System.out.println(user); });
+		 */
+		
+		
+//		Deleting the user 
+		
+		//We have 4 methods for deleting : deleteById, deleteAll
+		
+		/*
+		 * Iterable<User> allusers = userRepository.findAll(); allusers.forEach(user ->
+		 * {System.out.println(user);}); userRepository.deleteAll(allusers);
+		 */
+		
+		/*
+		 * List<User> users = userRepository.findByNameAndCity("Krati", "Agra");
+		 * 
+		 * users.forEach(e->System.out.println(e));
+		 */
+		
+		
+		List<User> allUser = userRepository.getAllUser();
+		System.out.println(allUser);
+		allUser.forEach(user -> { System.out.println(user); });
+		
 		System.out.println("Done");
 	}
 
