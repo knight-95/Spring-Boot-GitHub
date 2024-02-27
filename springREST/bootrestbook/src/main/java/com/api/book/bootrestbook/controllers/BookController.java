@@ -28,10 +28,10 @@ public class BookController {
     @GetMapping("/books")
     public ResponseEntity<List<Book>> getBooks() {
         List<Book> list = bookService.getAllBooks();
-        if (list.size() < 1) {
+        if (list.size() <=0) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return ResponseEntity.of(Optional.of(list));
+        return ResponseEntity.status(HttpStatus.CREATED).body(list);
     }
 
     // get single book handler
@@ -74,8 +74,14 @@ public class BookController {
 
     // updating book handler
     @PutMapping("/books/{id}")
-    public Book updateBook(@PathVariable("id") int bookId, @RequestBody Book book) {
-        this.bookService.updateBook(book, bookId);
-        return book;
+    public ResponseEntity<Book> updateBook(@PathVariable("id") int bookId, @RequestBody Book book) {
+
+        try {
+            this.bookService.updateBook(book, bookId);
+            return ResponseEntity.ok().body(book);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
+ 
